@@ -3,7 +3,8 @@ import * as FileSystem from 'expo-file-system/legacy';
 
 // TODO: Replace with your actual API Key or use a secure way to fetch it (e.g. backend proxy)
 // For this demo, we'll strip it or expect it passed in, but hardcoding for user convenience if they edit it.
-let API_KEY = "AIzaSyBI8Ggkmm1L3uSjBQdHh4yyrOkB7_E90nM";
+// Key is now hidden. The app will prompt for it at runtime.
+let API_KEY = "";
 
 export const setApiKey = (key: string) => {
     API_KEY = key;
@@ -17,9 +18,9 @@ export interface ScannedItemDraft {
 }
 
 export const analyzeReceiptImage = async (imageUri: string): Promise<ScannedItemDraft[]> => {
-    // if (API_KEY === "YOUR_GEMINI_API_KEY_HERE") {
-    //    throw new Error("API Key not set. Please provide a Gemini API Key.");
-    // }
+    if (!API_KEY) {
+        throw new Error("API Key not set. Please provide a Gemini API Key.");
+    }
 
     try {
         const genAI = new GoogleGenerativeAI(API_KEY);
